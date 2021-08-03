@@ -1,0 +1,42 @@
+.header > section {
+  margin-top: 25px;
+}
+.header1 {
+  width: 110px;
+}
+.header1 img {
+  width: 100px;
+  border-radius: 20px;
+}
+.header section section:last-child div {
+  margin-top: 10px;
+  margin-left: 10px;
+}
+.header section section:last-child div:first-child font {
+  font-size: 25px;
+  line-height: 0.52rem;
+  color: #000;
+}
+.header section section:last-child div:nth-child(2) font {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 20px;
+  line-height: 1.42857143;
+  color: #999999;
+  background-color: #fff;
+}
+
+.header section section:last-child div:last-child img {
+  width: 60px;
+}
+.tab-content img {
+  width: 100%;
+  margin-bottom: -8px;
+  margin-top: -8px;
+}
+.nav-tabs li {
+  width: 50%;
+  text-align: center;
+}
+/* 专属设置的在缩小后的布局 */
+@media screen and (max-width: 960px) {
+}

@@ -1,0 +1,666 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en">
+
+<head>
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+  <meta name="keywords" content="百度地图,百度地图API，百度地图自定义工具，百度地图所见即所得工具" />
+  <meta name="description" content="百度地图API自定义地图，帮助用户在可视化操作下生成百度地图" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="./images/icon222.ico" type="image/x-icon">
+  <title>天 津 麓 堂 职 业 培 训 学 校</title>
+  <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="./style/header2.css">
+  <script src="./js/jquery-3.5.1.min.js"></script>
+  <script src="./bootstrap/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="http://api.map.baidu.com/api?key=&v=1.1&services=true"></script>
+  <script src="./js/new.js"></script>
+
+</head>
+<style type="text/css">
+  /* Mixins */
+  /* bg shortcodes */
+  .bg-gradient1 span,
+  .bg-gradient1:before {
+    background: #52A0FD;
+    background: -webkit-linear-gradient(left, #52A0FD 0%, #00e2fa 80%, #00e2fa 100%);
+    background: linear-gradient(to right, #52A0FD 0%, #00e2fa 80%, #00e2fa 100%);
+  }
+
+  .bg-gradient2 span,
+  .bg-gradient2:before {
+    background: #44ea76;
+    background: -webkit-linear-gradient(left, #44ea76 0%, #39fad7 80%, #39fad7 100%);
+    background: linear-gradient(to right, #44ea76 0%, #39fad7 80%, #39fad7 100%);
+  }
+
+  .bg-gradient3 span,
+  .bg-gradient3:before {
+    background: #fa6c9f;
+    background: -webkit-linear-gradient(left, #fa6c9f 0%, #ffe140 80%, #ffe140 100%);
+    background: linear-gradient(to right, #fa6c9f 0%, #ffe140 80%, #ffe140 100%);
+  }
+
+  /* General */
+  .wrapper {
+    margin: 5% auto;
+    text-align: center;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  a:hover,
+  a:focus,
+  a:active {
+    text-decoration: none;
+  }
+
+  /* fancy Button */
+  .fancy-button {
+    display: inline-block;
+    margin: 30px;
+    font-family: 'Montserrat', Helvetica, Arial, sans-serif;
+    font-size: 17px;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: #ffffff;
+    position: relative;
+  }
+
+  .fancy-button:before {
+    content: '';
+    display: inline-block;
+    height: 40px;
+    position: absolute;
+    bottom: -5px;
+    left: 30px;
+    right: 30px;
+    z-index: -1;
+    border-radius: 30em;
+    -webkit-filter: blur(20px) brightness(0.95);
+    filter: blur(20px) brightness(0.95);
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+  }
+
+  .fancy-button i {
+    margin-top: -1px;
+    /* margin-right: px; */
+    font-size: 1.265em;
+    vertical-align: middle;
+  }
+
+  .fancy-button span {
+    display: inline-block;
+    width: 700px;
+    /* margin-left: -150px; */
+    margin-top: 50px;
+    /* margin-left: -100pxpx; */
+    padding: 18px 60px;
+    border-radius: 50em;
+    position: relative;
+    z-index: 2;
+    will-change: transform, filter;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+  }
+
+  .fancy-button:focus,
+  .fancy-button:active {
+    color: #ffffff;
+  }
+
+  .fancy-button:hover {
+    color: #ffffff;
+  }
+
+  .fancy-button:hover span {
+    -webkit-filter: brightness(1.05) contrast(1.05);
+    filter: brightness(1.05) contrast(1.05);
+    -webkit-transform: scale(0.95);
+    transform: scale(0.95);
+    /* width: 200px; */
+  }
+
+  .fancy-button:hover:before {
+    bottom: 0;
+    -webkit-filter: blur(10px) brightness(0.95);
+    filter: blur(10px) brightness(0.95);
+  }
+
+  .iw_poi_title {
+    color: #CC5522;
+    font-size: 14px;
+    font-weight: bold;
+    overflow: hidden;
+    padding-right: 13px;
+    white-space: nowrap
+  }
+
+  .iw_poi_content {
+
+    font: 12px arial, sans-serif;
+    overflow: visible;
+    padding-top: 4px;
+    white-space: -moz-pre-wrap;
+    word-wrap: break-word
+  }
+
+  .navbar-inverse .navbar-nav>li>a:focus,
+  .navbar-inverse .navbar-nav>li>a:hover {
+    color: rgb(153, 117, 117);
+  }
+
+  .navbar-inverse .navbar-nav>.open>a,
+  .navbar-inverse .navbar-nav>.open>a:focus,
+  .navbar-inverse .navbar-nav>.open>a:hover {
+    color: black;
+  }
+
+  .navbar-inverse .navbar-nav>li>a {
+    color: rgb(26, 22, 18);
+  }
+
+  .ulbox {
+    margin-left: -25px;
+  }
+
+  .test2 {
+    width: 100%;
+  }
+
+  @media screen and (max-width: 760px) {
+    .test88 {
+      margin-right: -15px;
+      margin-left: -50px;
+    }
+
+
+    .banner>div>img {
+      width: 100%;
+      height: 200px;
+      margin-left: -10px;
+    }
+
+    .main-banner {
+      height: 150px;
+    }
+
+    .main1>section:first-child {
+      margin-bottom: 5px;
+      margin-top: 80px;
+    }
+
+    .main1>section:first-child>div>p {
+      font-size: 25px;
+    }
+
+    .li-p1 {
+      font-size: 20px;
+    }
+
+    .li-p2 {
+      font-size: 15px;
+    }
+
+    .recommend2-ul>section li {
+      width: 90%;
+      height: 250px;
+      margin: 15px 0px;
+      /* margin-right: -50px; */
+      margin-left: 5%;
+    }
+
+    .main1>.test4 {
+      width: 50%;
+    }
+
+    .db1-p1 {
+      font-size: 25px;
+    }
+
+    .div-bottom .div1 {
+      margin-top: -10px;
+      padding: 0px;
+      margin-bottom: -50px;
+    }
+
+    .div-bottom .div2 {
+      height: 300px;
+    }
+
+    .db2-p1 {
+      font-size: 30px;
+    }
+
+    .div-bottom {
+      margin-top: 20px;
+
+    }
+
+    .db2-p11 {
+      margin-left: -90px;
+      font-size: 20px;
+    }
+
+    .db2-p22 {
+      font-size: 20px;
+      margin-left: -70px;
+    }
+
+    .lastbot>section>section:nth-child(2) {
+      margin-left: 0px;
+      margin-top: -130px;
+    }
+
+    .lastbot>section>section:nth-child(3) {
+      height: 100px;
+      margin-top: -50px;
+    }
+
+    .wrapper {
+      margin-top: -30px;
+      /* width: 400px; */
+    }
+
+    .fancy-button span {
+      width: 250px;
+      font-size: 10px;
+      margin-top: 0px;
+
+    }
+  }
+</style>
+
+
+<body>
+
+  <!-- 导航栏部分-->
+  <header class=" header">
+    <section class="container">
+      <section class="row col-xs-4 col-sm-4 col-md-4 col-lg-8  ">
+        <section class="col-xs-4 col-sm-4 col-md-8 col-lg-6 header1 hidden-xs " " >
+                <img onclick=" location.href='index.html' ;" src=" ./images/cscsc.png" alt="">
+        </section>
+        <section class="container">
+          <section class="col-xs-6 col-sm-9 col-md-12 col-lg-6  hidden-xs">
+            <ul class="nav nav-pills col-xs-6 col-sm-6 col-md-6 col-lg-6  ">
+              <li class="active  col-ection2 "><a class="active1" href="index.html">首页</a></li>
+              <li class="dropdown  col-2 "><a class="dropdown-toggle active2" data-toggle="dropdown" href="#">课程中心<b
+                    class="caret"></b></a>
+                <ul class="dropdown-menu  nav-list99 ">
+
+
+
+                  <li class="dropdown   "><a class="dropdown-toggle ">高管课堂<b
+                        class="glyphicon glyphicon-triangle-right"></b></a>
+                    <ul class="dropdown-menu dropdown-menu1">
+                      <li><a target="_blank" href="/classroom1.html">工信部领军人才企业数字化赋能高级研修班</a></li>
+                      <li><a target="_blank" href="/classroom2.html">企业数字化高管实战训练营</a></li>
+                      <li><a target="_blank" href="/classroom3.html">企业数字化HR组织实战训练营</a></li>
+                      <li><a target="_blank" href="/classroom4.html">高级数字化领袖</a></li>
+                      <li><a target="_blank" href="/classroom5.html">数字化人力资源管理</a></li>
+                    </ul>
+                  </li>
+                  <li class="dropdown  "><a class="dropdown-toggle">职业认证<b
+                        class="glyphicon glyphicon-triangle-right"></b></a>
+                    <ul class="dropdown-menu dropdown-menu1 ">
+                      <li><a target="_blank" href="Certification.html">数字化管理师</a></li>
+                      <li><a target="_blank" href="#">数字化会计师</a></li>
+                    </ul>
+                  </li>
+                  <li class="dropdown  "><a class="dropdown-toggle">数字化管理师<b
+                        class="glyphicon glyphicon-triangle-right"></b></a>
+                    <ul class="dropdown-menu dropdown-menu1 ">
+                      <li><a target="_blank" href="#">初级数字化管理师</a></li>
+                      <li><a target="_blank" href="#">中级数字化管理师</a></li>
+                    </ul>
+                  </li>
+                  <li><a target="_blank" href="#">初级班</a></li>
+                </ul>
+
+              </li>
+              <li class="dropdown active3 col-2 ">
+                <a href="https://www.aliwork.com/o/lutang?ddtab=true">点击报名</a>
+
+              </li>
+
+            </ul>
+          </section>
+        </section>
+        <!-- <section class="col-xs-6 col-sm-6 hidden-md hidden-lg"></section> -->
+      </section>
+    </section>
+    <!-- 移动导航栏 -->
+    <div class="navbar navbar-fixed-top navbar-inverse hidden-lg hidden-md  hidden-sm test1 ">
+      <div class="container test2">
+        <div class="navbar-header" style="background-color: #ece5de;">
+          <img onclick=" location.href='index.html' ;" src=" ./images/cscsc.png" alt=" "
+            style="width: 30%;float: left;">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navBar"
+            style="background-color: black;">
+
+
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div class="collapse navbar-collapse navbar-right   " id="navBar"
+          style="background-color: #ece5de;  height: 300px; width: 110%;">
+          <ul class="ulbox">
+            <li class="active  col-ection2 "><a class="active1" href="index.html">首页</a></li>
+            <li class="dropdown  col-2 "><a class="dropdown-toggle active2" data-toggle="dropdown" href="#">课程中心<b
+                  class="caret"></b></a>
+              <ul class="dropdown  nav-list99 ">
+
+
+
+                <li class="dropdown   "><a class="dropdown-toggle ">高管课堂<b
+                      class="glyphicon glyphicon-triangle-right"></b></a>
+                  <ul class="dropdown ">
+                    <li><a target="_blank" href="/classroom1.html">工信部领军人才企业数字化赋能高级研修班</a></li>
+                    <li><a target="_blank" href="/classroom2.html">企业数字化高管实战训练营</a></li>
+                    <li><a target="_blank" href="/classroom3.html">企业数字化HR组织实战训练营</a></li>
+                    <li><a target="_blank" href="/classroom4.html">高级数字化领袖</a></li>
+                    <li><a target="_blank" href="/classroom5.html">数字化人力资源管理</a></li>
+                  </ul>
+                </li>
+                <li class="dropdown  "><a class="dropdown-toggle">职业认证<b
+                      class="glyphicon glyphicon-triangle-right"></b></a>
+                  <ul class="dropdown  ">
+                    <li><a target="_blank" href="Certification.html">数字化管理师</a></li>
+                    <li><a target="_blank" href="#">数字化会计师</a></li>
+                  </ul>
+                </li>
+                <li class="dropdown  "><a class="dropdown-toggle">数字化管理师<b
+                      class="glyphicon glyphicon-triangle-right"></b></a>
+                  <ul class="dropdown ">
+                    <li><a target="_blank" href="#">初级数字化管理师</a></li>
+                    <li><a target="_blank" href="#">中级数字化管理师</a></li>
+                  </ul>
+                </li>
+                <li><a target="_blank" href="#">初级班</a></li>
+              </ul>
+
+            </li>
+        </div>
+      </div>
+    </div>
+
+  </header>
+  <!-- 轮播图 -->
+  <section class="  container banner ">
+
+    <div class="main-banner   col-md-6 col-lg-12 ">
+      <!-- <img src="./images/天津麓堂logo设计-12.jpg" alt="企业介绍"  /> -->
+      <img src="./images/天津麓堂logo设计-04.jpg" alt="企业介绍" class="banner-img" />
+      <img src="./images/1111.png" alt="企业介绍" />
+      <img src="./images/banner1.jpg" alt="企业介绍" />
+
+      <!-- <img src="./images/22.jpg" alt="企业介绍" /> -->
+    </div>
+  </section>
+  <!--推荐课程  -->
+  <section class=" container main1 ">
+    <section class="recommend1 row">
+      <div class="col-12">
+        <p class="main-p1">课程简介</p>
+      </div>
+    </section>
+    <section class="row">
+
+      <ul class="recommend2-ul clearfix  row test88">
+        <section class="col-xs-12 col-sm-12 col-md-4 col-lg-4 haa  test4 ">
+          <li class="recommend2-li1 " onclick="location.href='class3.html';">
+            <p class="li-p1">数字化管理师</p>
+            <p class="li-p2">
+              &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp数字化管理师是指利用数字化办公软件平台，进行企业及组织人员架构编辑、组织运营流程维护、工作流协同、大数据决策分析、企业上下游在线化连接，使企业组织沟通、协同、业务、生态在线，实现企业经营管理在线化、数字化的专业人员
+            </p>
+          </li>
+        </section>
+        <section class="col-xs-12 col-sm-12 col-md-4 col-lg-4 test4  ">
+          <li class="recommend2-li2 col-xs-12 col-sm-12 col-md-4 col-lg-4 " onclick="location.href='class2.html';">
+            <p class="li-p1">课程价值</p>
+            <p class="li-p2">
+              &nbsp&nbsp&nbsp数字化管理是实体经济向数字经济靠拢的趋势，而通过数字化管理赋能实体经济、传统企业也是未来的趋势
+            </p>
+          </li>
+        </section>
+        <section class="col-xs-12 col-sm-12 col-md-4 col-lg-4 test4  ">
+          <li class="recommend2-li3 col-xs-12 col-sm-12 col-md-4 col-lg-4  " onclick="location.href='class1.html';">
+            <p class="li-p1">人才推荐合作单位</p>
+            <p class="li-p2">
+              &nbsp&nbsp&nbsp目前天津麓堂职业培训学校与阿里云、钉钉、钉钉大学、阿里云全国服务商、钉钉全国服务商共同拟定“数字化管理师”人才推荐计划。<br />
+              &nbsp&nbsp&nbsp 将培训后取证的数字化管理师输送到全国数字化相关领域一线岗位。
+            </p>
+          </li>
+        </section>
+      </ul>
+    </section>
+  </section>
+  <!-- 学校简介 -->
+  <section class="container " onclick=" location.href='class4.html' ;">
+    <div class="div-bottom row">
+      <div class="div-bottom_1 col-12 div1">
+        <p class="db1-p1">学校简介</p>
+        <p class="db2-p  hidden-sm hidden-xs ">
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp2019年末，中华人民共和国人力资源和社会保障部、市场监管总局、统计局正式向社会联合发布了13项新职业，自此，“数字化管理师”正式被定义为一项全新的职业，并被列入国家紧缺职业名录。2020年，天津麓堂职业培训学校正式成立。
+        </p>
+        <p class="db2-p  hidden-lg hidden-md  ">
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp2019年末，中华人民共和国人力资源和社会保障部、市场监管总局、统计局正式向社会联合发布了13项新职业，自此，“数字化管理师”正式被定义为一项全新的职业，并被列入国家紧缺职业名录。2020年，天津麓堂职业培训学校正式成立。
+        </p>
+      </div>
+      <div class="div-bottom_2 col-12 div2">
+        <p class="db2-p11 db2-p1  hidden-lg hidden-md "> &nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp
+          &nbsp&nbsp&nbsp&nbsp打造数字化人才生态
+          </br></br>推动数字化社会建设
+        </p>
+        <br>
+        <p class="db2-p1 hidden-sm hidden-xs ">打造数字化人才生态，推动数字化社会建设</p><br>
+        <!-- <p class="db2-p2  hidden-sm hidden-xs ">为国家数字化建设发展提供专业能力教育与定向人才培养</p> -->
+        <p class="db2-p22 db2-p2 hidden-sm hidden-xs ">为国家数字化建设发展提供专业能力教育与定向人才培养</p>
+        <a class="hidden-sm hidden-xs " href="#">了解更多&nbsp;&nbsp</a>
+      </div>
+    </div>
+
+  </section>
+  <!-- 新闻资讯内容 -->
+  <section class=" container news-con hidden-xs hidden-sm ">
+    <!--  新闻资讯   -->
+    <div class=" news hidden-xs hidden-sm">
+      <section class="recommend1 container-fluid ">
+        <div class="col-12">
+          <p class="main-p1">新闻资讯</p>
+        </div>
+      </section>
+    </div>
+    <section class="  row  hidden-xs hidden-sm">
+      <section class=" hidden-xs hidden-sm col-md-6 col-lg-6 hidden-xs hidden-sm">
+        <img src="./images/qwewqeqw.png" alt="">
+      </section>
+
+      <section class="col-xs-12 col-sm-12 col-md-6 col-lg-6 hidden-xs hidden-sm ">
+        <div class="frist-one">
+          <a href="https://news.cctv.com/2021/03/02/ARTIqi8ngIlvRsH5BKq8htyi210302.shtml">
+            <img src="./images/aa.png" />&nbsp;&nbsp;&nbsp;&nbsp;《平“语”近人——习近平喜欢的典故》（第二季）第十二集
+            直挂云帆济沧海</a>
+
+          <div>
+            <a
+              href="https://news.cctv.com/2021/03/04/ARTIM4mm5rNSJNTrfoQLfOGC210304.shtml?spm=C94212.PBZrLs0D62ld.EKoevbmLqVHC.60"><img
+                src="./images/aa.png" />&nbsp;&nbsp;&nbsp;&nbsp;人民网评：托举起人民更加幸福美好的明天</a>
+          </div>
+          <div>
+            <a
+              href="https://sports.cctv.com/2021/03/04/ARTIRoPyxGq1okm1scWx6Hxp210304.shtml?spm=C73465.PhvcG4VlqNFF.EoW8Ji0KUiOe.7"><img
+                src="./images/aa.png" />&nbsp;&nbsp;&nbsp;&nbsp;詹皇缺阵三配角合砍79分
+              湖人残阵负国王两连败</a>
+          </div>
+          <div>
+            <a
+              href="#https://military.cctv.com/2021/03/02/ARTI8BDZGjvhcz0UwQXRB8S3210302.shtml?spm=C95414.PwcreT7zLCIH.S24711.8"><img
+                src="./images/aa.png" />&nbsp;&nbsp;&nbsp;&nbsp;弘扬“三个不相信”精神，让红色血脉在官兵中永存</a>
+          </div>
+          <div>
+            <a
+              href="https://photo.cctv.com/2021/03/04/PHOAOLM4BCQepi3PDqhxFAi8210304.shtml?spm=C94212.PBi4fu284lJm.EqrnPf7WDfbU.104#pT38RqWXta2s210304_1"><img
+                src="./images/aa.png" />&nbsp;&nbsp;&nbsp;&nbsp;SpaceX星际飞船原型机着陆数分钟后爆炸</a>
+          </div>
+
+      </section>
+    </section>
+  </section>
+  <!-- 底部的公司信息 -->
+  <section class="container  lastbot ">
+    <section class="  row">
+      <section class="col-xs-12 col-sm-12 col-md-4 col-lg-4 bottom123 hidden-sm hidden-xs ">
+
+        <div class="bottom2 hidden-sm hidden-xs ">
+          <p>关于我们</p>
+          <div class="bottom2-list">邮箱 : liulei@tjdingtalk.com</div>
+          <div class="bottom2-list">电话 : 185 0263 7027</div>
+          <div class="bottom2-list">地址 : 这里这里这里这里这里</div>
+          <!-- <div class="bottom2-list">公司备案信息 : lishfijhishfsl</div> -->
+        </div>
+      </section>
+      <section class="col-xs-12 hidden-sm col-md-4 col-lg-4">
+        <p> 关注我们</p>
+        <img src="./images/33D5F3AF-ABBD-44F4-8934-8DBDB49050CA.png" alt="">
+      </section>
+
+      <section class="col-xs-12 col-sm-12 col-md-4 col-lg-4 bottom999">
+        <p>联系我们</p><br>
+        <span>022-8624-0564</span>
+        <p></p>
+      </section>
+    </section>
+  </section>
+  <section class="container hidden-sm hidden-xs">
+    <div class="hidden-sm hidden-xs" style="width:100%;height:300px;border:#ccc solid 1px;" id="dituContent"></div>
+  </section>
+  <!-- 点击报名 -->
+  <div class="wrapper hidden-md hidden-lg">
+    <a href="https://www.aliwork.com/o/lutang?ddtab=true" class="fancy-button bg-gradient1  div-bot "> <span>点击报名<i
+          class="fa fa-wheelchair-alt"></i></span></a>
+
+  </div>
+  <!-- 地图js -->
+  <script>
+    //地图
+    //创建和初始化地图函数：
+
+    function initMap() {
+      createMap();//创建地图
+      setMapEvent();//设置地图事件
+      addMapControl();//向地图添加控件
+      addMarker();//向地图中添加marker
+    }
+
+    //创建地图函数：
+    function createMap() {
+
+      var map = new BMap.Map("dituContent");//在百度地图容器中创建一个地图
+      var point = new BMap.Point(117.333456, 39.010545);//定义一个中心点坐标
+      map.centerAndZoom(point, 14);//设定地图的中心点和坐标并将地图显示在地图容器中
+      window.map = map;//将map变量存储在全局
+    }
+
+    //地图事件设置函数：
+    function setMapEvent() {
+      map.enableDragging();//启用地图拖拽事件，默认启用(可不写)
+      map.enableScrollWheelZoom();//启用地图滚轮放大缩小
+      map.enableDoubleClickZoom();//启用鼠标双击放大，默认启用(可不写)
+      map.enableKeyboard();//启用键盘上下左右键移动地图
+    }
+
+    //地图控件添加函数：
+    function addMapControl() {
+      //向地图中添加缩放控件
+      var ctrl_nav = new BMap.NavigationControl({ anchor: BMAP_ANCHOR_TOP_LEFT, type: BMAP_NAVIGATION_CONTROL_LARGE });
+      map.addControl(ctrl_nav);
+      //向地图中添加缩略图控件
+      var ctrl_ove = new BMap.OverviewMapControl({ anchor: BMAP_ANCHOR_BOTTOM_RIGHT, isOpen: 1 });
+      map.addControl(ctrl_ove);
+      //向地图中添加比例尺控件
+      var ctrl_sca = new BMap.ScaleControl({ anchor: BMAP_ANCHOR_BOTTOM_LEFT });
+      map.addControl(ctrl_sca);
+    }
+
+    //标注点数组
+    var markerArr = [{ title: "天津麓堂职业培训学校", content: "天津市津南区双港高科技产业园天宇荣昌产业园15-3-306", point: "117.307764|39.014897", isOpen: 0, icon: { w: 23, h: 25, l: 46, t: 21, x: 9, lb: 12 } }
+    ];
+    //创建marker
+    function addMarker() {
+      for (var i = 0; i < markerArr.length; i++) {
+        var json = markerArr[i];
+        var p0 = json.point.split("|")[0];
+        var p1 = json.point.split("|")[1];
+        var point = new BMap.Point(p0, p1);
+        var iconImg = createIcon(json.icon);
+        var marker = new BMap.Marker(point, { icon: iconImg });
+        var iw = createInfoWindow(i);
+        var label = new BMap.Label(json.title, { "offset": new BMap.Size(json.icon.lb - json.icon.x + 10, -20) });
+        marker.setLabel(label);
+        map.addOverlay(marker);
+        label.setStyle({
+          borderColor: "#808080",
+          color: "#333",
+          cursor: "pointer"
+        });
+
+        (function () {
+          var index = i;
+          var _iw = createInfoWindow(i);
+          var _marker = marker;
+          _marker.addEventListener("click", function () {
+            this.openInfoWindow(_iw);
+          });
+          _iw.addEventListener("open", function () {
+            _marker.getLabel().hide();
+          })
+          _iw.addEventListener("close", function () {
+            _marker.getLabel().show();
+          })
+          label.addEventListener("click", function () {
+            _marker.openInfoWindow(_iw);
+          })
+          if (!!json.isOpen) {
+            label.hide();
+            _marker.openInfoWindow(_iw);
+          }
+        })()
+      }
+    }
+    //创建InfoWindow
+    function createInfoWindow(i) {
+      var json = markerArr[i];
+      var iw = new BMap.InfoWindow("<b class='iw_poi_title' title='" + json.title + "'>" + json.title + "</b><div class='iw_poi_content'>" + json.content + "</div>");
+      return iw;
+    }
+    //创建一个Icon
+    function createIcon(json) {
+      var icon = new BMap.Icon("  http://api.map.baidu.com/lbsapi/creatmap/images/us_mk_icon.png", new BMap.Size(json.w, json.h), { imageOffset: new BMap.Size(-json.l, -json.t), infoWindowOffset: new BMap.Size(json.lb + 5, 1), offset: new BMap.Size(json.x, json.h) })
+      return icon;
+    }
+
+    initMap();//创建和初始化地图
+  </script>
+
+
+</body>
+
+</html>
